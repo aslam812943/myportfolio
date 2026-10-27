@@ -44,7 +44,7 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className={`site-header ${scrolled ? "is-scrolled" : ""} ${overAnatomy && !open ? "is-cream" : ""}`}>
+    <header className={`site-header ${scrolled ? "is-scrolled" : ""} ${overAnatomy && !open ? "is-cream" : ""} ${open ? "is-menu-open" : ""}`}>
       <a className="wordmark" href="#top" aria-label="Muhammad Aslam home"><span className="brand-full" aria-hidden="true">MUHAMMAD ASLAM.</span><span className="brand-short" aria-hidden="true">M ASLAM.</span></a>
       <nav className="desktop-nav" aria-label="Primary navigation">
         {links.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
