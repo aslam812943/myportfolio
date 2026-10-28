@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PortfolioIntro } from "@/components/portfolio-intro";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -30,6 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
+        <PortfolioIntro />
         <a className="skip-link" href="#top">Skip to content</a>
         {children}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "Person", name: "Muhammad Aslam", url: "https://aslam-build-log.sharewealthai.chatgpt.site", sameAs: ["https://github.com/aslam812943", "https://www.linkedin.com/in/muhammad-aslam81/", "https://www.instagram.com/by__aslam/"], jobTitle: "Software Engineer" }) }} />

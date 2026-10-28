@@ -432,7 +432,24 @@ footer>a:last-child{grid-column:3;justify-self:end;white-space:nowrap}
 .contact-content .contact-form textarea{height:clamp(58px,9vh,88px);min-height:58px}
 .contact-slide-panel{position:relative;z-index:1;display:flow-root;height:100%;background:var(--bg)}
 .contact-slide-panel:focus-within{transform:none!important}
-@media(max-width:900px){.contact{min-height:auto}.contact-sticky-stage{position:relative;height:auto;min-height:auto}.contact-intro{display:none}.contact-content,.contact-slide-panel{height:auto;min-height:auto}.contact-content{overflow:visible}.contact-slide-panel{transform:none!important}}
+@media(max-width:900px){.contact{min-height:auto}.contact-sticky-stage{position:relative;height:auto;min-height:auto}.contact-intro{display:none}.contact-content,.contact-slide-panel{height:auto;min-height:auto}.contact-content{overflow:visible}}
+@media(min-width:601px) and (max-width:900px){.contact-slide-panel{transform:none!important}}
+@media(max-width:600px){
+  body{overflow-x:clip}
+  .contact-phone{min-height:0}
+  .contact-phone-track{position:relative;height:180svh;background:var(--paper)}
+  .contact-phone-stage{position:sticky;top:0;height:100svh;overflow:hidden;background:var(--paper)}
+  .contact-phone .contact-intro{display:flex;inset:0;padding:clamp(100px,17vh,150px) 20px 30px}
+  .contact-phone .contact-intro p{font-size:clamp(2.75rem,12vw,4.8rem);line-height:.9}
+  .contact-phone-panel{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:90px 20px 30px;background:var(--bg);color:var(--text)}
+  .contact-phone-panel>span{font:10px "JetBrains Mono",monospace;letter-spacing:.18em;color:var(--accent)}
+  .contact-phone-panel>p{margin:32px 0 0;font:500 clamp(3rem,14vw,5rem)/.9 "Space Grotesk",sans-serif;letter-spacing:-.065em}
+  .contact-phone-body{background:var(--bg);padding-top:56px;padding-bottom:90px}
+  .contact-phone-body .chapter-label{display:none}
+  .contact-phone-body .contact-heading{display:block;margin:0 0 40px}
+  .contact-phone-body .contact-heading h2{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .contact-phone-body .contact-heading p{font-size:18px;line-height:1.6}
+}
 @media(prefers-reduced-motion:reduce){.contact{min-height:auto}.contact-sticky-stage{position:relative;height:auto;min-height:auto}.contact-intro{display:none}.contact-slide-panel{height:auto;transform:none!important}}
 
 /* Keep the mobile navigation above page content, including after the header blurs on scroll. */
@@ -442,6 +459,15 @@ footer>a:last-child{grid-column:3;justify-self:end;white-space:nowrap}
   .mobile-menu{z-index:0;height:100vh;height:100dvh;overflow-y:auto;overscroll-behavior:contain;justify-content:center;padding:90px 24px 40px}
   .mobile-menu a{flex-shrink:0}
 }
+
+.portfolio-intro{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;min-height:100vh;min-height:100dvh;background:var(--bg);color:var(--text);transition:opacity .6s var(--ease),visibility .6s var(--ease)}
+.portfolio-intro.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
+.portfolio-intro-name{display:flex;align-items:baseline;justify-content:center;max-width:calc(100vw - 40px);overflow:hidden;padding:0 .04em;font:600 clamp(2rem,8vw,9rem)/1 "Space Grotesk",Arial,sans-serif;letter-spacing:-.035em;white-space:nowrap}
+.portfolio-intro-letter,.portfolio-intro-dot{display:inline-block;animation:intro-letter-rise 1.05s cubic-bezier(.22,1,.36,1) both}
+.portfolio-intro-space{flex:0 0 .28em}
+.portfolio-intro-dot{color:var(--accent);animation-delay:.65s}
+@keyframes intro-letter-rise{from{opacity:0;transform:translateY(115%)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.portfolio-intro{display:none}.portfolio-intro-letter,.portfolio-intro-dot{animation:none}}
 
 
 
