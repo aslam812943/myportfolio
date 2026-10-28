@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
 import { visibleProjects } from "@/data/projects";
+import { siteUrl } from "@/data/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://aslam-build-log.sharewealthai.chatgpt.site";
-  return [{ url: base, lastModified: new Date() }, { url: `${base}/work`, lastModified: new Date() }, ...visibleProjects.map((project) => ({ url: `${base}/work/${project.slug}`, lastModified: new Date() }))];
+  return [{ url: siteUrl }, { url: `${siteUrl}/work` }, ...visibleProjects.map((project) => ({ url: `${siteUrl}/work/${project.slug}` }))];
 }
 

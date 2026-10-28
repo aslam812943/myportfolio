@@ -1,3 +1,5 @@
+export const siteUrl = "https://muhammadaslam.online";
+
 export const socials = [
   { label: "GitHub", href: "https://github.com/aslam812943" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/muhammad-aslam81/" },

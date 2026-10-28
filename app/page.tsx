@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowDownRight } from "lucide-react";
@@ -17,6 +18,7 @@ import { visibleProjects } from "@/data/projects";
 import { socials } from "@/data/site";
 
 const featured = visibleProjects.filter((project) => project.featured);
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 function ChapterLabel({ number, children, light = false }: { number: string; children: React.ReactNode; light?: boolean }) {
   return <p className={`chapter-label ${light ? "on-light" : ""}`}><span>{number}</span>{children}</p>;
@@ -47,7 +49,7 @@ export default function Home() {
         <section className="work chapter section-shell" id="work" aria-labelledby="work-title">
           <div className="section-intro"><p className="eyebrow">02 / THE PROOF</p><Reveal><h2 id="work-title">IDEAS,<br /><em>SHIPPED.</em></h2></Reveal><p>Selected projects that show what I enjoy building.</p></div>
           <FeaturedProjectCarousel projects={featured} />
-          <Link className="all-work-link" href="/work">ALL SIX PROJECTS <span>06</span> ↗</Link>
+          <Link className="all-work-link" href="/work">ALL {visibleProjects.length} PROJECTS <span>{String(visibleProjects.length).padStart(2, "0")}</span> ↗</Link>
         </section>
 
         <BehindTheBuild />
