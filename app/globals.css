@@ -451,6 +451,7 @@ footer>a:last-child{grid-column:3;justify-self:end;white-space:nowrap}
   .contact-phone-body .contact-heading p{font-size:18px;line-height:1.6}
 }
 @media(prefers-reduced-motion:reduce){.contact{min-height:auto}.contact-sticky-stage{position:relative;height:auto;min-height:auto}.contact-intro{display:none}.contact-slide-panel{height:auto;transform:none!important}}
+@media(max-width:600px) and (prefers-reduced-motion:reduce){.contact-phone-track{height:100svh}.contact-phone-stage{position:relative}.contact-phone .contact-intro{display:none}.contact-phone-panel{transform:none!important}}
 
 /* Keep the mobile navigation above page content, including after the header blurs on scroll. */
 @media(max-width:900px){
@@ -467,7 +468,7 @@ footer>a:last-child{grid-column:3;justify-self:end;white-space:nowrap}
 .portfolio-intro-space{flex:0 0 .28em}
 .portfolio-intro-dot{color:var(--accent);animation-delay:.65s}
 @keyframes intro-letter-rise{from{opacity:0;transform:translateY(115%)}to{opacity:1;transform:translateY(0)}}
-@media(prefers-reduced-motion:reduce){.portfolio-intro{display:none}.portfolio-intro-letter,.portfolio-intro-dot{animation:none}}
+@media(prefers-reduced-motion:reduce){.portfolio-intro{transition:none}.portfolio-intro-letter,.portfolio-intro-dot{animation:none}}
 
 
 

@@ -8,13 +8,19 @@ export function PortfolioIntro() {
   const [phase, setPhase] = useState<"show" | "leave" | "done">("show");
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setPhase("done");
-      return;
-    }
-
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const timer = window.setTimeout(() => {
+        document.body.style.overflow = previousOverflow;
+        setPhase("done");
+      }, 900);
+      return () => {
+        window.clearTimeout(timer);
+        document.body.style.overflow = previousOverflow;
+      };
+    }
 
     let loadReady = document.readyState === "complete";
     let minimumElapsed = false;
@@ -58,11 +64,20 @@ export function PortfolioIntro() {
   if (phase === "done") return null;
 
   return (
-    <div className={`portfolio-intro${phase === "leave" ? " is-leaving" : ""}`} role="status" aria-label="Loading portfolio">
-      <span className="portfolio-intro-name" aria-hidden="true">
+    <div
+      className={`portfolio-intro${phase === "leave" ? " is-leaving" : ""}`}
+      style={{ position: "fixed", inset: 0, zIndex: 1000, display: "grid", placeItems: "center", background: "#101214", color: "#f4f2ed" }}
+      role="status"
+      aria-label="Loading portfolio"
+    >
+      <span
+        className="portfolio-intro-name"
+        style={{ display: "flex", alignItems: "baseline", justifyContent: "center", maxWidth: "calc(100vw - 40px)", overflow: "hidden", font: "600 clamp(2rem, 8vw, 9rem)/1 'Space Grotesk', Arial, sans-serif", letterSpacing: "-.035em", whiteSpace: "nowrap" }}
+        aria-hidden="true"
+      >
         {[...name].map((letter, index) => (
           letter === " "
-            ? <span className="portfolio-intro-space" key={index} />
+            ? <span className="portfolio-intro-space" key={index} style={{ flex: "0 0 .28em" }} />
             : <span className="portfolio-intro-letter" key={index} style={{ animationDelay: `${index * 115}ms` }}>{letter}</span>
         ))}
         <span className="portfolio-intro-dot" aria-hidden="true">.</span>

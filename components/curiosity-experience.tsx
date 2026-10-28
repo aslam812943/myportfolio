@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { motion, useMotionValueEvent, useScroll, useTransform } from "motion/react";
 import { useRef, useState } from "react";
+import { useHydratedReducedMotion } from "./use-hydrated-reduced-motion";
 
 const stages = [
   { number: "01", title: "EXPLORE", copy: "Understand. Research. Learn.", href: "#work" },
@@ -15,7 +16,7 @@ const stages = [
 
 export function CuriosityExperience() {
   const section = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
+  const reduced = useHydratedReducedMotion();
   const [active, setActive] = useState(0);
   const { scrollYProgress } = useScroll({ target: section, offset: ["start start", "end end"] });
   const progress = useTransform(scrollYProgress, [0, 1], [0.08, 1]);

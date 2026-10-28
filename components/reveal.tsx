@@ -1,9 +1,10 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { useHydratedReducedMotion } from "./use-hydrated-reduced-motion";
 
 export function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
-  const reduced = useReducedMotion();
+  const reduced = useHydratedReducedMotion();
   return (
     <motion.div
       className={className}

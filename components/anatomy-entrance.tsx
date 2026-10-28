@@ -1,10 +1,11 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import type { ReactNode } from "react";
+import { useHydratedReducedMotion } from "./use-hydrated-reduced-motion";
 
 export function AnatomyEntrance({ children }: { children: ReactNode }) {
-  const reduced = useReducedMotion();
+  const reduced = useHydratedReducedMotion();
   return <div className="anatomy-transition-backdrop"><motion.section
     className="anatomy section-shell anatomy-entrance"
     aria-labelledby="anatomy-title"

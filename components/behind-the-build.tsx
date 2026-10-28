@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
-import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
+import { motion, useMotionValue, useSpring } from "motion/react";
+import { useHydratedReducedMotion } from "./use-hydrated-reduced-motion";
 import { ITEMS } from "./behind-the-build-items";
 import { BehindTheBuildPreview } from "./behind-the-build-preview";
 import { BehindTheBuildRow } from "./behind-the-build-row";
@@ -13,7 +14,7 @@ export function BehindTheBuild() {
   const [isPlaying, setIsPlaying] = useState(true);
   const [cycle, setCycle] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-  const reduced = Boolean(useReducedMotion());
+  const reduced = useHydratedReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(-500);
