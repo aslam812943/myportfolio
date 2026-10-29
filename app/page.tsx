@@ -15,7 +15,7 @@ import { SiteHeader } from "@/components/site-header";
 import { ServicesShowcase } from "@/components/services-showcase";
 import { WeddingVideoCard } from "@/components/wedding-video-card";
 import { visibleProjects } from "@/data/projects";
-import { socials } from "@/data/site";
+import { siteUrl, socials } from "@/data/site";
 
 const featured = visibleProjects.filter((project) => project.featured);
 export const metadata: Metadata = { alternates: { canonical: "/" } };
@@ -27,6 +27,7 @@ function ChapterLabel({ number, children, light = false }: { number: string; chi
 export default function Home() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "WebSite", name: "Muhammad Aslam", alternateName: ["ASLAM.", "muhammadaslam.online"], url: `${siteUrl}/` }) }} />
       <SiteHeader />
       <main id="top">
         <section className="hero chapter" id="beginning" aria-labelledby="hero-title">

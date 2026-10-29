@@ -26,7 +26,7 @@ export function FeaturedProjectCarousel({ projects }: { projects: Project[] }) {
           <span>LIVE SITE · INTERACTIVE</span>
           <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.name} full site`}><ArrowUpRight size={15} /></a>
         </div>
-        <LiveProjectPreview key={project.slug} project={project} isPhone={isPhone} />
+        <LiveProjectPreview key={project.slug} project={project} isPhone={isPhone} deferUntilVisible />
         {!isPhone && <div className="editorial-preview-actions">
           <span>SCROLL &amp; EXPLORE</span>
           <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">OPEN FULL SITE <ArrowUpRight size={13} /></a>

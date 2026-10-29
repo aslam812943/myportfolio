@@ -9,7 +9,17 @@ export function generateStaticParams() { return visibleProjects.map(({ slug }) =
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const project = getProject((await params).slug);
-  return project ? { title: `${project.name} — Muhammad Aslam`, description: project.summary, alternates: { canonical: `/work/${project.slug}` } } : {};
+  if (!project) return {};
+
+  const title = `${project.name} Case Study | Muhammad Aslam`;
+  const image = { url: project.heroImage, alt: `${project.name} project preview` };
+  return {
+    title: `${project.name} Case Study`,
+    description: project.summary,
+    alternates: { canonical: `/work/${project.slug}` },
+    openGraph: { title, description: project.summary, url: `/work/${project.slug}`, siteName: "Muhammad Aslam", locale: "en_US", type: "article", images: [image] },
+    twitter: { card: "summary_large_image", title, description: project.summary, images: [project.heroImage] },
+  };
 }
 
 export default async function CaseStudy({ params }: { params: Promise<{ slug: string }> }) {

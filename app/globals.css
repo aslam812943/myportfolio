@@ -461,14 +461,16 @@ footer>a:last-child{grid-column:3;justify-self:end;white-space:nowrap}
   .mobile-menu a{flex-shrink:0}
 }
 
-.portfolio-intro{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;min-height:100vh;min-height:100dvh;background:var(--bg);color:var(--text);transition:opacity .6s var(--ease),visibility .6s var(--ease)}
+.portfolio-intro{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;min-height:100vh;min-height:100dvh;background:var(--bg);color:var(--text);transition:opacity .4s var(--ease),visibility .4s var(--ease)}
 .portfolio-intro.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
 .portfolio-intro-name{display:flex;align-items:baseline;justify-content:center;max-width:calc(100vw - 40px);overflow:hidden;padding:0 .04em;font:600 clamp(2rem,8vw,9rem)/1 "Space Grotesk",Arial,sans-serif;letter-spacing:-.035em;white-space:nowrap}
-.portfolio-intro-letter,.portfolio-intro-dot{display:inline-block;animation:intro-letter-rise 1.05s cubic-bezier(.22,1,.36,1) both}
+.portfolio-intro-letter,.portfolio-intro-dot{display:inline-block;animation:intro-letter-rise .72s cubic-bezier(.22,1,.36,1) both}
 .portfolio-intro-space{flex:0 0 .28em}
-.portfolio-intro-dot{color:var(--accent);animation-delay:.65s}
+.portfolio-intro-dot{color:var(--accent);animation-delay:1s}
+.portfolio-intro-spinner{position:absolute;top:calc(50% + clamp(52px,8vw,110px));left:calc(50% - 12px);width:24px;height:24px;border:2px solid rgba(146,182,164,.28);border-top-color:var(--accent);border-radius:50%;animation:intro-spinner-turn .8s linear infinite}
 @keyframes intro-letter-rise{from{opacity:0;transform:translateY(115%)}to{opacity:1;transform:translateY(0)}}
-@media(prefers-reduced-motion:reduce){.portfolio-intro{transition:none}.portfolio-intro-letter,.portfolio-intro-dot{animation:none}}
+@keyframes intro-spinner-turn{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.portfolio-intro{transition:none}.portfolio-intro-letter,.portfolio-intro-dot{animation:none}.portfolio-intro-spinner{display:none}}
 
 
 

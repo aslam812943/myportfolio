@@ -42,7 +42,7 @@ export function CuriosityExperience() {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           style={{ y: artworkY, scale: artworkScale, opacity: artworkOpacity }}
         >
-          <Image src="/startwith/Neon Portal Stairway Ascent.png" alt="" fill priority sizes="(max-width: 767px) 100vw, (max-width: 1439px) 60vw, 54vw" />
+          <Image src="/startwith/Neon Portal Stairway Ascent.png" alt="" fill sizes="(max-width: 767px) 100vw, (max-width: 1439px) 60vw, 54vw" />
         </motion.div>
 
         <div className="curiosity-layout">

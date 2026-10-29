@@ -2,7 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 import { LiveProjectPreview } from "@/components/live-project-preview";
 import type { Project } from "@/data/projects";
 
-export function ProjectLiveFrame({ project, deferUntilVisible = false }: { project: Project; deferUntilVisible?: boolean }) {
+export function ProjectLiveFrame({ project, deferUntilVisible = true }: { project: Project; deferUntilVisible?: boolean }) {
   const isPhone = project.slug === "dream-wedding";
 
   return <div className={`editorial-browser case-live-preview${isPhone ? " is-phone-preview" : ""}`}>
