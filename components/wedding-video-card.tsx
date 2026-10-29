@@ -10,6 +10,8 @@ export function WeddingVideoCard() {
   const [muted, setMuted] = useState(true);
   const [hasEntered, setHasEntered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
 
   useEffect(() => {
     const card = cardRef.current;
@@ -21,11 +23,15 @@ export function WeddingVideoCard() {
       }, 0);
       return () => clearTimeout(timer);
     }
-    const observer = new IntersectionObserver(([entry]) => {
-      setIsVisible(entry.isIntersecting);
-      if (entry.isIntersecting) setHasEntered(true);
-    }, { rootMargin: "200px" });
+    const previousSection = document.getElementById("expertise");
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.target === card) setIsVisible(entry.isIntersecting);
+        if (entry.isIntersecting) setHasEntered(true);
+      }
+    }, { rootMargin: "200px", threshold: 0.05 });
     observer.observe(card);
+    if (previousSection) observer.observe(previousSection);
     return () => observer.disconnect();
   }, []);
 
@@ -52,9 +58,21 @@ export function WeddingVideoCard() {
 
   return (
     <div className="creative-card wedding" ref={cardRef}>
-      <video ref={videoRef} className="wedding-card-video" muted loop playsInline preload="none" poster={hasEntered ? "/projects/wedding-intro.png" : undefined} aria-hidden="true">
+      <video
+        ref={videoRef}
+        className="wedding-card-video"
+        muted
+        loop
+        playsInline
+        preload={hasEntered ? "auto" : "none"}
+        poster="/projects/wedding-intro.png"
+        onCanPlay={() => setVideoReady(true)}
+        onError={() => setVideoFailed(true)}
+        aria-hidden="true"
+      >
         {hasEntered && <source src="/wedding/VN20261013_170933.mp4" type="video/mp4" />}
       </video>
+      {isVisible && hasEntered && !videoReady && !videoFailed && <span className="wedding-video-loading" role="status"><i aria-hidden="true" />LOADING FILM</span>}
       <Link className="wedding-card-link" href="/work/dream-wedding" aria-label="View Dream Wedding project">
         <span>01 / DIGITAL EXPERIENCE</span>
         <h3>Dream Wedding</h3>

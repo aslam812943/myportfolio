@@ -219,6 +219,8 @@
 /* Dream Wedding card: moving preview with a stable, legible text overlay. */
 .creative-card.wedding{width:min(100%,330px);min-height:0;aspect-ratio:9/16;margin-inline:auto;padding:22px;border:7px solid #24292a;border-radius:34px;box-shadow:0 24px 70px #0008;background:#181c1e url('/projects/wedding-intro.png') center/cover no-repeat}
 .creative-card.wedding .wedding-card-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.creative-card.wedding .wedding-video-loading{position:absolute;z-index:3;top:20px;left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:7px;padding:7px 9px;border:1px solid #ffffff75;border-radius:999px;background:#101214b8;color:#fff;font:8px "JetBrains Mono",monospace;letter-spacing:.08em;white-space:nowrap;pointer-events:none}
+.wedding-video-loading i{width:10px;height:10px;border:1px solid #ffffff80;border-top-color:#fff;border-radius:50%;animation:editorial-spinner .8s linear infinite}
 .creative-card.wedding:before{z-index:1;background:linear-gradient(180deg,#080b0c24 5%,#080b0c25 42%,#080b0ce8 100%)}
 .creative-card.wedding .wedding-card-link{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;padding:22px}
 .creative-card.wedding .wedding-card-link>span{font:10px "JetBrains Mono",monospace;color:var(--accent)}
@@ -229,7 +231,7 @@
 .creative-card.wedding .wedding-sound-button{position:absolute;z-index:3;top:16px;left:16px;display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid #ffffff75;border-radius:50%;background:#101214b8;color:#fff;cursor:pointer;backdrop-filter:blur(8px);transition:background .2s,border-color .2s}
 .creative-card.wedding .wedding-sound-button:hover{background:#101214eb;border-color:#fff}
 .creative-card.wedding .wedding-sound-button svg{position:static;width:19px;height:19px}
-@media(prefers-reduced-motion:reduce){.creative-card.wedding .wedding-card-video{display:none}}
+@media(prefers-reduced-motion:reduce){.creative-card.wedding .wedding-card-video,.creative-card.wedding .wedding-video-loading{display:none}}
 @media(prefers-reduced-motion:reduce){.creative-card.wedding .wedding-sound-button{display:none}}
 @media(max-width:600px){.creative-card.wedding{width:min(100%,300px)}}
 
