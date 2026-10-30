@@ -1,75 +1,62 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { INTRO_SEEN_KEY } from "./intro-config";
 
 const name = "MUHAMMAD ASLAM";
 
+/*
+ * The intro is timed entirely in CSS (see "Intro + hero choreography" in globals.css), so it leaves
+ * on schedule even while JavaScript is still loading on a slow phone, and the hero headline rises
+ * as it fades. This component only locks scrolling while it is on screen, remembers that the visitor
+ * has seen it this session, and removes it from the page afterwards.
+ */
 export function PortfolioIntro() {
-  const [phase, setPhase] = useState<"show" | "leave" | "done">("show");
+  const ref = useRef<HTMLDivElement>(null);
+  const [done, setDone] = useState(false);
 
   useEffect(() => {
     const root = document.documentElement;
-    const previousOverflow = root.style.overflow;
-    root.style.overflow = "hidden";
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const timer = window.setTimeout(() => {
-        root.style.overflow = previousOverflow;
-        setPhase("done");
-      }, 250);
-      return () => {
-        window.clearTimeout(timer);
-        root.style.overflow = previousOverflow;
-      };
+    const overlay = ref.current;
+    try { sessionStorage.setItem(INTRO_SEEN_KEY, "1"); } catch { /* storage can be blocked */ }
+    if (!overlay || root.classList.contains("intro-skip") || getComputedStyle(overlay).visibility === "hidden") {
+      setDone(true);
+      return;
     }
 
-    const portrait = document.querySelector<HTMLImageElement>(".hero-portrait");
-    let loadReady = !portrait || portrait.complete;
-    let minimumElapsed = false;
-    let leaving = false;
-    let exitTimer: number | undefined;
-
-    const beginExit = () => {
-      if (leaving || !minimumElapsed || !loadReady) return;
-      leaving = true;
-      setPhase("leave");
-      exitTimer = window.setTimeout(() => {
-        root.style.overflow = previousOverflow;
-        setPhase("done");
-      }, 420);
+    const previousOverflow = root.style.overflow;
+    root.style.overflow = "hidden";
+    let finished = false;
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      root.style.overflow = previousOverflow;
+      setDone(true);
     };
-    const onPortraitReady = () => {
-      loadReady = true;
-      beginExit();
+    const onStart = (event: AnimationEvent) => {
+      if (event.animationName === "intro-exit") root.style.overflow = previousOverflow;
     };
-
-    portrait?.addEventListener("load", onPortraitReady);
-    portrait?.addEventListener("error", onPortraitReady);
-    const minimumTimer = window.setTimeout(() => {
-      minimumElapsed = true;
-      beginExit();
-    }, 1900);
-    // A failed or slow image must not keep the portfolio hidden.
-    const fallbackTimer = window.setTimeout(() => {
-      loadReady = true;
-      minimumElapsed = true;
-      beginExit();
-    }, 4000);
+    const onEnd = (event: AnimationEvent) => {
+      if (event.animationName === "intro-exit") finish();
+    };
+    overlay.addEventListener("animationstart", onStart);
+    overlay.addEventListener("animationend", onEnd);
+    // Safety net in case animation events never fire (e.g. a background tab).
+    const fallback = window.setTimeout(finish, 2600);
     return () => {
-      portrait?.removeEventListener("load", onPortraitReady);
-      portrait?.removeEventListener("error", onPortraitReady);
-      window.clearTimeout(minimumTimer);
-      window.clearTimeout(fallbackTimer);
-      window.clearTimeout(exitTimer);
+      overlay.removeEventListener("animationstart", onStart);
+      overlay.removeEventListener("animationend", onEnd);
+      window.clearTimeout(fallback);
       root.style.overflow = previousOverflow;
     };
   }, []);
 
-  if (phase === "done") return null;
+  if (done) return null;
 
   return (
     <div
-      className={`portfolio-intro${phase === "leave" ? " is-leaving" : ""}`}
+      ref={ref}
+      className="portfolio-intro"
       style={{ position: "fixed", inset: 0, zIndex: 1000, display: "grid", placeItems: "center", background: "#101214", color: "#f4f2ed" }}
       role="status"
       aria-label="Loading portfolio"
@@ -82,11 +69,11 @@ export function PortfolioIntro() {
         {[...name].map((letter, index) => (
           letter === " "
             ? <span className="portfolio-intro-space" key={index} style={{ flex: "0 0 .28em" }} />
-            : <span className="portfolio-intro-letter" key={index} style={{ animationDelay: `${index * 70}ms` }}>{letter}</span>
+            : <span className="portfolio-intro-letter" key={index} style={{ animationDelay: `${index * 34}ms` }}>{letter}</span>
         ))}
         <span className="portfolio-intro-dot" aria-hidden="true">.</span>
       </span>
-      <span className="portfolio-intro-spinner" aria-hidden="true" />
+      <span className="portfolio-intro-bar" aria-hidden="true" />
     </div>
   );
 }

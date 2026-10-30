@@ -1,11 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type KeyboardEvent, type PointerEvent } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { useHydratedReducedMotion } from "./use-hydrated-reduced-motion";
 import { ITEMS } from "./behind-the-build-items";
 import { BehindTheBuildPreview } from "./behind-the-build-preview";
 import { BehindTheBuildRow } from "./behind-the-build-row";
+
+// How long each skill group stays in the preview before autoplay moves on (was 26 s, so most visitors only ever saw the first one).
+export const AUTOPLAY_MS = 9000;
+const subscribeNoop = () => () => {};
 
 export function BehindTheBuild() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -14,6 +18,10 @@ export function BehindTheBuild() {
   const [isPlaying, setIsPlaying] = useState(true);
   const [cycle, setCycle] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  // Set once the section is first seen: the preview "boots" (typing, count-up) and the skill tags stagger in.
+  const [started, setStarted] = useState(false);
+  // True only after hydration, so the server HTML always shows the skill tags.
+  const hydrated = useSyncExternalStore(subscribeNoop, () => true, () => false);
   const reduced = useHydratedReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
@@ -23,18 +31,23 @@ export function BehindTheBuild() {
   const smoothX = useSpring(x, { stiffness: 90, damping: 24 });
   const smoothY = useSpring(y, { stiffness: 90, damping: 24 });
   const paused = isHovering || !isPlaying || !isVisible;
+  // Skill tags are only hidden for their entrance once JavaScript is running, so they never stay invisible.
+  const motionReady = hydrated && !reduced;
 
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
-    const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), { threshold: .1 });
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsVisible(entry.isIntersecting);
+      if (entry.isIntersecting) setStarted(true);
+    }, { threshold: .1 });
     observer.observe(section);
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
     if (paused || reduced) return;
-    const timer = window.setTimeout(() => setActiveIndex((index) => (index + 1) % ITEMS.length), 26000);
+    const timer = window.setTimeout(() => setActiveIndex((index) => (index + 1) % ITEMS.length), AUTOPLAY_MS);
     return () => window.clearTimeout(timer);
   }, [activeIndex, cycle, paused, reduced]);
 
@@ -101,7 +114,7 @@ export function BehindTheBuild() {
   return (
     <section
       ref={sectionRef}
-      className="expertise behind-build chapter section-shell"
+      className={`expertise behind-build chapter section-shell${motionReady ? " motion-ready" : ""}${started ? " is-revealed" : ""}`}
       id="expertise"
       aria-labelledby="expertise-title"
       onPointerMove={moveSpotlight}
@@ -117,7 +130,7 @@ export function BehindTheBuild() {
           <h2 id="expertise-title">BEHIND<br />THE <em>BUILD.</em></h2>
         </div>
         <div className="behind-preview-wrap">
-          <BehindTheBuildPreview item={ITEMS[activeIndex]} activeIndex={activeIndex} cycle={cycle} paused={paused} reduced={reduced} />
+          <BehindTheBuildPreview item={ITEMS[activeIndex]} activeIndex={activeIndex} cycle={cycle} paused={paused} reduced={reduced} started={started} autoplayMs={AUTOPLAY_MS} />
           <div className="behind-preview-nav" aria-label="Preview selection">
             <div className="behind-preview-dots">{ITEMS.map((item, index) => <button key={item.n} type="button" className="behind-preview-dot" data-active={activeIndex === index} aria-label={`Preview ${item.title}`} aria-current={activeIndex === index ? "true" : undefined} onClick={() => { playCyberClick(); select(index); }} />)}</div>
             <span className="behind-preview-counter">{String(activeIndex + 1).padStart(2, "0")} / {String(ITEMS.length).padStart(2, "0")}</span>

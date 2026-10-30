@@ -1,5 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
+
+/* Self-hosted variable fonts (was a render-blocking Google Fonts @import).
+   Latin loads first; latin-ext (₹ and accented letters) only downloads when a page uses those characters. */
+@font-face{font-family:"Inter";font-style:normal;font-weight:100 900;font-display:swap;src:url("/fonts/inter-latin-wght-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Inter";font-style:normal;font-weight:100 900;font-display:swap;src:url("/fonts/inter-latin-ext-wght-normal.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:300 700;font-display:swap;src:url("/fonts/space-grotesk-latin-wght-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:300 700;font-display:swap;src:url("/fonts/space-grotesk-latin-ext-wght-normal.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:100 800;font-display:swap;src:url("/fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:100 800;font-display:swap;src:url("/fonts/jetbrains-mono-latin-ext-wght-normal.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 
 :root{--bg:#101214;--surface:#181c1e;--elevated:#22282a;--text:#f4f2ed;--secondary:#a3aaa6;--muted:#737c78;--accent:#92b6a4;--accent-light:#c2d3c8;--paper:#f0eee8;--ink:#181c1e;--border:rgba(255,255,255,.1);--ease:cubic-bezier(.22,1,.36,1)}
 *{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--bg)}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;overflow-x:hidden}a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}button{color:inherit}.skip-link{position:fixed;top:-60px;left:16px;z-index:200;background:var(--accent);color:var(--ink);padding:12px 18px}.skip-link:focus{top:16px}::selection{background:var(--accent);color:var(--ink)}:focus-visible{outline:2px solid var(--accent);outline-offset:4px}em{color:var(--accent);font-style:normal}.section-shell{max-width:1440px;margin:0 auto;padding:clamp(90px,12vw,180px) clamp(24px,6.5vw,96px)}.eyebrow,.chapter-label{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase}.chapter-label{display:flex;align-items:center;gap:14px;color:var(--secondary)}.chapter-label span{display:grid;place-items:center;width:30px;height:30px;border:1px solid var(--border);border-radius:50%;color:var(--accent)}.chapter-label.on-light{color:#606865}.chapter-label.on-light span{border-color:#181c1e33;color:var(--ink)}h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:"Space Grotesk",Arial,sans-serif;letter-spacing:-.055em}h2{font-size:clamp(3rem,6.4vw,6.7rem);font-weight:500;line-height:.88}.pill{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:48px;border:1px solid var(--text);border-radius:999px;padding:0 20px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.06em;transition:.3s var(--ease)}.pill svg{width:16px;transition:.3s var(--ease)}.pill:hover{background:var(--text);color:var(--ink)}.pill:hover svg{transform:translate(4px,4px)}.pill.light{background:var(--paper);color:var(--ink);border-color:var(--paper)}.pill.light:hover{background:var(--accent)}.text-link,.case-link{display:inline-flex;align-items:center;gap:8px;font:500 11px/1 "JetBrains Mono",monospace;letter-spacing:.06em;border-bottom:1px solid currentColor;padding-bottom:5px}.case-link svg{width:16px}.button-row{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
@@ -477,3 +485,71 @@ footer>a:last-child{grid-column:3;justify-self:end;white-space:nowrap}
 
 
 
+
+/* ==========================================================================
+   Performance + motion refinements (Oct 2026)
+   ========================================================================== */
+
+/* Intro + hero choreography.
+   The intro is timed in CSS so it leaves on schedule even while JavaScript is still loading, and the hero
+   headline and portrait start their entrance as it fades (before, they played hidden behind the intro).
+   Returning visitors in the same session skip the intro: an inline script adds `intro-skip` before first paint. */
+:root{--intro-hold:.95s}
+html.intro-skip{--intro-hold:0s}
+html.intro-skip .portfolio-intro{display:none!important}
+.portfolio-intro{animation:intro-exit .42s var(--ease) var(--intro-hold) forwards}
+.portfolio-intro-letter,.portfolio-intro-dot{animation-duration:.5s}
+.portfolio-intro-dot{animation-delay:.5s}
+.portfolio-intro-spinner{display:none}
+.portfolio-intro-bar{position:absolute;top:calc(50% + clamp(48px,7vw,104px));left:50%;width:min(160px,30vw);height:1px;margin-left:calc(min(160px,30vw) / -2);background:var(--accent);transform:scaleX(0);transform-origin:left;animation:intro-bar var(--intro-hold) cubic-bezier(.65,0,.35,1) forwards}
+@keyframes intro-exit{to{opacity:0;visibility:hidden}}
+@keyframes intro-bar{to{transform:scaleX(1)}}
+.hero h1{animation-delay:calc(var(--intro-hold) + .05s)}
+.hero-statement{animation-delay:calc(var(--intro-hold) + .2s)}
+.hero-portrait{animation-delay:calc(var(--intro-hold) + .15s)}
+/* The intro paragraph is left static on purpose: it is the main content Google times for page speed (LCP). */
+.hero-meta,.hero-role,.scroll-cue{animation:hero-soft-in .8s var(--ease) both;animation-delay:calc(var(--intro-hold) + .3s)}
+.scroll-cue{animation-delay:calc(var(--intro-hold) + .6s)}
+@keyframes hero-soft-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){
+  :root{--intro-hold:0s}
+  .portfolio-intro{display:none!important}
+  .hero-meta,.hero-role,.scroll-cue{animation:none}
+}
+
+/* Skills: every skill of every group is listed under its row (readable, indexable); tags stagger in once. */
+.behind-row-skills{overflow:visible}
+.behind-row-skills ul{display:flex;flex-wrap:wrap;gap:7px 16px;margin:-4px 0 0;padding:0 20px 16px 50px;list-style:none;font:10px/1.5 "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--build-muted);transition:transform .3s ease}
+.behind-row-skills li{position:relative;transition:color .3s ease}
+.behind-row-skills li:not(:last-child):after{content:"";position:absolute;top:50%;right:-10px;width:3px;height:3px;margin-top:-1.5px;border-radius:50%;background:var(--build-line)}
+.behind-row-wrap[data-active=true] .behind-row-skills ul,.behind-row:hover+.behind-row-skills ul{transform:translateX(12px)}
+.behind-row-wrap[data-active=true] .behind-row-skills li{color:var(--sage)}
+.behind-row-wrap[data-active=true] .behind-row-skills li:not(:last-child):after{background:var(--sage);opacity:.55}
+/* The active underline now sits under the skills instead of cutting through them. */
+.behind-row-wrap{position:relative}
+.behind-row:after{display:none}
+.behind-row-wrap:after{content:"";position:absolute;right:0;bottom:-1px;left:0;height:1px;background:var(--sage);transform:scaleX(0);transform-origin:left;transition:transform .45s ease;pointer-events:none}
+.behind-row-wrap[data-active=true]:after,.behind-row-wrap:has(.behind-row:hover):after{transform:scaleX(1)}
+.behind-build.motion-ready .behind-row-skills li{opacity:0}
+.behind-build.motion-ready.is-revealed .behind-row-skills li{animation:skill-in .5s var(--ease) both;animation-delay:calc(var(--row) * 90ms + var(--i) * 28ms + .15s)}
+@keyframes skill-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+@media(max-width:600px){.behind-row-skills ul{padding:0 12px 14px 44px;gap:6px 14px;font-size:9px}}
+@media(prefers-reduced-motion:reduce){.behind-row-skills ul,.behind-row-skills li,.behind-row-wrap:after{transition:none}.behind-build .behind-row-skills li{opacity:1!important;animation:none!important}}
+
+/* Live project previews: a light screenshot shows instantly; the real site loads on hover / focus / tap. */
+.editorial-image-window .editorial-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;transition:opacity .4s ease,transform .8s var(--ease)}
+/* The whole screenshot is shown (no cropped edges); a soft blurred copy fills the space around it. */
+.editorial-image-window .editorial-poster-fill{position:absolute;inset:-24px;width:calc(100% + 48px);height:calc(100% + 48px);object-fit:cover;filter:blur(22px) brightness(.45) saturate(.9);transition:opacity .4s ease}
+.editorial-image-window[data-status=loaded] .editorial-poster-fill{opacity:0}
+.editorial-image-window.has-poster:hover .editorial-poster{transform:scale(1.015)}
+.editorial-image-window[data-status=loaded] .editorial-poster{opacity:0}
+.is-phone-preview .editorial-image-window .editorial-poster{object-fit:cover;object-position:top center}
+.editorial-poster-cta{position:absolute;left:50%;bottom:18px;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid #9bc3ae80;border-radius:999px;background:#101516e6;color:var(--accent);font:10px/1 "JetBrains Mono",monospace;letter-spacing:.08em;white-space:nowrap;transform:translateX(-50%);cursor:pointer;backdrop-filter:blur(6px);transition:background .25s ease,color .25s ease,border-color .25s ease}
+.editorial-poster-cta:hover,.editorial-poster-cta:focus-visible{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+.editorial-poster-cta.is-loading{cursor:default}
+.editorial-poster-cta.is-loading:hover{background:#101516e6;color:var(--accent)}
+.editorial-poster-cta .editorial-loading-spinner{display:block;width:12px;height:12px;border:1.5px solid #3A4A44;border-top-color:var(--accent);border-radius:50%;animation:editorial-spinner .85s linear infinite}
+@media(prefers-reduced-motion:reduce){.editorial-image-window .editorial-poster,.editorial-image-window .editorial-poster-fill{transition:none}.editorial-image-window.has-poster:hover .editorial-poster{transform:none}.editorial-poster-cta .editorial-loading-spinner{animation:none}}
+
+/* Wedding card: lighter poster that matches the portrait video. */
+.creative-card.wedding{background-image:url('/wedding/dream-wedding-poster.webp')}

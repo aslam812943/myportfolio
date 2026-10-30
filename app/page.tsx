@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowDownRight } from "lucide-react";
 import { BuildAnatomy } from "@/components/build-anatomy";
 import { AnatomyEntrance } from "@/components/anatomy-entrance";
@@ -41,7 +40,9 @@ export default function Home() {
             <div className="hero-intro"><p>I turn ideas into functional products, expressive websites, and meaningful digital experiences.</p><div className="button-row"><a className="pill" href="#work">EXPLORE MY WORK <ArrowDownRight /></a><a className="text-link" href="#contact">LET&apos;S CONNECT ↗</a></div></div>
             <div className="portrait-fallback hero-brand-card" aria-hidden="true"><span>@by__aslam</span><strong>A.</strong></div>
           </div>
-          <Image className="hero-portrait" src="/images/aslam-hero.png" alt="Muhammad Aslam" width={1402} height={1122} priority />
+          {/* Pre-sized WebP files: the built-in image route on this host passes the 1.4 MB PNG through unchanged. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="hero-portrait" src="/images/aslam-hero-1400.webp" srcSet="/images/aslam-hero-700.webp 700w, /images/aslam-hero-1000.webp 1000w, /images/aslam-hero-1400.webp 1400w" sizes="(max-width: 600px) calc(100vw - 40px), (max-width: 1439px) 48vw, 820px" alt="Muhammad Aslam" width={1402} height={1122} fetchPriority="high" decoding="async" />
           <a className="scroll-cue" href="#story">SCROLL TO EXPLORE <span>↓</span></a>
         </section>
 

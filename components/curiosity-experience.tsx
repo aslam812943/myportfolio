@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion, useMotionValueEvent, useScroll, useTransform } from "motion/react";
@@ -42,7 +41,8 @@ export function CuriosityExperience() {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           style={{ y: artworkY, scale: artworkScale, opacity: artworkOpacity }}
         >
-          <Image src="/startwith/Neon Portal Stairway Ascent.png" alt="" fill sizes="(max-width: 767px) 100vw, (max-width: 1439px) 60vw, 54vw" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/startwith/neon-portal-1536.webp" srcSet="/startwith/neon-portal-800.webp 800w, /startwith/neon-portal-1536.webp 1536w" sizes="(max-width: 767px) 100vw, (max-width: 1439px) 60vw, 74vw" alt="" width={1536} height={1024} loading="lazy" decoding="async" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
         </motion.div>
 
         <div className="curiosity-layout">
@@ -52,7 +52,10 @@ export function CuriosityExperience() {
               IT STARTS<br />WITH<br /><em>CURIOSITY.</em>
             </motion.h2>
             <p className="curiosity-intro">I&apos;m always curious about how things work, why they work, and how to make them better.</p>
-            <div className="curiosity-artwork-mobile" aria-hidden="true"><Image src="/startwith/Neon Portal Stairway Ascent.png" alt="" width={1536} height={1024} sizes="calc(100vw - 40px)" /></div>
+            <div className="curiosity-artwork-mobile" aria-hidden="true">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/startwith/neon-portal-800.webp" srcSet="/startwith/neon-portal-800.webp 800w, /startwith/neon-portal-1536.webp 1536w" sizes="calc(100vw - 40px)" alt="" width={1536} height={1024} loading="lazy" decoding="async" />
+            </div>
             <p className="curiosity-keywords">Learn.<br />Experiment.<br />Build.<br />Repeat.</p>
           </div>
 

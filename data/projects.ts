@@ -21,6 +21,8 @@ export type Project = {
   features: string[];
   techStack: string[];
   heroImage: string;
+  /** Light WebP screenshot shown instantly in the live-preview frame (desktop shot, or phone shot for phone projects). */
+  previewImage?: string;
   screenshots: ProjectScreenshot[];
   video?: string;
   liveUrl: string;
@@ -46,11 +48,11 @@ export const projects: Project[] = [
     features: ["Lawyer discovery", "Appointment booking", "Real-time chat and video calls", "Reviews and notifications", "Wallets, subscriptions and payouts", "User, lawyer and admin dashboards"],
     techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Redux Toolkit", "Node.js", "Express", "MongoDB", "Redis", "Socket.IO", "Stripe", "Cloudinary", "Nodemailer"],
     heroImage: "/projects/openlaw-home.png",
+    previewImage: "/projects/openlaw-home.webp",
     screenshots: [
       { src: "/projects/openlaw-home.png", alt: "OpenLaw home page with a lawyer search field and consultation introduction", label: "Live home page", width: 1879, height: 864 },
       { src: "/projects/openlaw-mobile.png", alt: "OpenLaw mobile home page with search field and legal consultation introduction", label: "Mobile home page" },
     ],
-    video: "/projectVideo/openlow.mp4",
     liveUrl: "https://www.openlaw.sbs/",
     githubUrl: "https://github.com/aslam812943/OpenLaw-Frontend",
     featured: true,
@@ -69,6 +71,7 @@ export const projects: Project[] = [
     features: ["Season leaderboard", "Style 1 and Style 2 rankings", "Schedule and team registration navigation", "Admin navigation"],
     techStack: ["Technology verification pending"],
     heroImage: "/projects/point-home.png",
+    previewImage: "/projects/point-home.webp",
     screenshots: [
       { src: "/projects/point-home.png", alt: "DuffPoints desktop season leaderboard with ranked teams", label: "Season leaderboard", width: 1440, height: 900 },
       { src: "/projects/point-mobile.png", alt: "DuffPoints mobile leaderboard with team summary cards", label: "Mobile leaderboard" },
@@ -92,11 +95,11 @@ export const projects: Project[] = [
     features: ["Wine browsing and wishlist", "Cart, coupons and checkout", "Wallet and order tracking", "Customer authentication and email verification", "Product and customer administration", "Order management and sales reports"],
     techStack: ["EJS", "CSS", "Tailwind CSS", "JavaScript", "Chart.js", "Node.js", "Express", "MongoDB", "Mongoose", "Google OAuth", "Razorpay", "Cloudinary", "Nodemailer"],
     heroImage: "/projects/wine-home.png",
+    previewImage: "/projects/wine-home.webp",
     screenshots: [
       { src: "/projects/wine-home.png", alt: "Wine Heaven storefront hero with collection and account navigation", label: "Storefront home", width: 1875, height: 877 },
       { src: "/projects/wine-mobile.png", alt: "Wine Heaven storefront on a narrow mobile viewport", label: "Mobile storefront" },
     ],
-    video: "/projectVideo/winehevan.mp4",
     liveUrl: "https://wine-heaven.vercel.app/",
     githubUrl: "https://github.com/aslam812943/Wine-heaven",
     featured: true,
@@ -115,6 +118,7 @@ export const projects: Project[] = [
     features: ["Image-led presentation", "Responsive live deployment"],
     techStack: ["Technology verification pending"],
     heroImage: "/projects/ajmal-home.png",
+    previewImage: "/projects/ajmal-home.webp",
     screenshots: [
       { src: "/projects/ajmal-home.png", alt: "Ajmal Maithani portfolio desktop home page with editorial portrait presentation", label: "Desktop home" },
       { src: "/projects/ajmal-mobile.png", alt: "Ajmal Maithani portfolio mobile home page", label: "Mobile home" },
@@ -139,6 +143,7 @@ export const projects: Project[] = [
     features: ["Bride and groom presentation", "Couple image gallery", "Wedding date and time", "Event details", "Responsive phone experience"],
     techStack: ["React", "JavaScript", "CSS"],
     heroImage: "/projects/wedding-intro.png",
+    previewImage: "/projects/wedding-mobile.webp",
     screenshots: [
       { src: "/projects/wedding-intro.png", alt: "Dream Wedding invitation opening screen with an Open Invitation button", label: "Invitation opening" },
       { src: "/projects/wedding-mobile.png", alt: "Dream Wedding mobile invitation opening screen", label: "Mobile invitation", width: 390, height: 844 },
@@ -162,6 +167,7 @@ export const projects: Project[] = [
     features: ["Monthly dashboard and spending insights", "Income, expenses and recurring entries", "Budgets and savings goals", "EMIs and amortization schedules", "Personal lending, repayments and proof attachments", "Reports, forecasts and CSV export", "Browser-based demo mode", "Responsive light and dark themes"],
     techStack: ["React 19", "TypeScript", "Vite", "Tailwind CSS", "React Router", "Recharts", "React Hook Form", "Zod", "Node.js", "Express 5", "MongoDB", "Mongoose", "Playwright"],
     heroImage: "/projects/moneymate-signin.png",
+    previewImage: "/projects/moneymate-signin.webp",
     screenshots: [
       { src: "/projects/moneymate-signin.png", alt: "MoneyMate sign-in page with a live demo option", label: "Sign-in and demo" },
       { src: "/projects/moneymate-mobile.png", alt: "MoneyMate mobile sign-in screen with a live demo option", label: "Mobile sign-in" },

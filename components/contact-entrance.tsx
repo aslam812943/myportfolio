@@ -1,22 +1,22 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useRef, useSyncExternalStore, type ReactNode } from "react";
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import { useHydratedReducedMotion } from "./use-hydrated-reduced-motion";
+
+const PHONE_QUERY = "(max-width: 600px)";
+const subscribeNoop = () => () => {};
+const subscribePhone = (onChange: () => void) => {
+  const media = window.matchMedia(PHONE_QUERY);
+  media.addEventListener("change", onChange);
+  return () => media.removeEventListener("change", onChange);
+};
 
 export function ContactEntrance({ children }: { children: ReactNode }) {
   const sectionRef = useRef<HTMLElement>(null);
   const reduced = useHydratedReducedMotion();
-  const [mounted, setMounted] = useState(false);
-  const [phone, setPhone] = useState(false);
-  useEffect(() => {
-    const media = window.matchMedia("(max-width: 600px)");
-    const update = () => setPhone(media.matches);
-    update();
-    setMounted(true);
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
+  const mounted = useSyncExternalStore(subscribeNoop, () => true, () => false);
+  const phone = useSyncExternalStore(subscribePhone, () => window.matchMedia(PHONE_QUERY).matches, () => false);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],

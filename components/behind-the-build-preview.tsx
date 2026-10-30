@@ -6,11 +6,15 @@ import type { BuildItem } from "./behind-the-build-items";
 import { useTypewriter } from "@/hooks/use-typewriter";
 import { useCountUp } from "@/hooks/use-count-up";
 
-type Props = { item: BuildItem; activeIndex: number; cycle: number; paused: boolean; reduced: boolean };
+type Props = { item: BuildItem; activeIndex: number; cycle: number; paused: boolean; reduced: boolean; started: boolean; autoplayMs: number };
 
-function PreviewContent({ item, reduced }: { item: BuildItem; reduced: boolean }) {
-  const typed = useTypewriter(item.term, reduced);
-  const count = useCountUp(item.stat.value, reduced);
+// `play` is false in the server HTML and until the section is first seen: the card then shows its finished
+// state (full terminal text, real number) instead of an empty terminal and "0".
+function PreviewContent({ item, reduced, play }: { item: BuildItem; reduced: boolean; play: boolean }) {
+  const still = reduced || !play;
+  const typed = useTypewriter(item.term, still);
+  // The card shows how many skills this group lists, always in sync with the tags.
+  const count = useCountUp(item.tags.length, still);
   return (
     <motion.div
       className="behind-preview-content"
@@ -22,7 +26,7 @@ function PreviewContent({ item, reduced }: { item: BuildItem; reduced: boolean }
       <span className="behind-preview-number" aria-hidden="true">{item.n}</span>
       <svg className="behind-preview-art" viewBox="0 0 110 72" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true">
         {item.shapes.map((shape, index) => {
-          const draw = { initial: reduced ? false : { pathLength: 0 }, animate: { pathLength: 1 }, transition: { duration: reduced ? 0 : .9, delay: reduced ? 0 : .15 } };
+          const draw = { initial: still ? false : { pathLength: 0 }, animate: { pathLength: 1 }, transition: { duration: still ? 0 : .9, delay: still ? 0 : .15 } };
           switch (shape.kind) {
             case "rect": return <motion.rect key={index} x={shape.x} y={shape.y} width={shape.width} height={shape.height} {...draw} />;
             case "line": return <motion.line key={index} x1={shape.x1} y1={shape.y1} x2={shape.x2} y2={shape.y2} {...draw} />;
@@ -48,14 +52,14 @@ function PreviewContent({ item, reduced }: { item: BuildItem; reduced: boolean }
             </div>
           </div>
         </div>
-        <div className="behind-preview-stat" aria-hidden="true"><strong>{count}{item.stat.suffix}</strong><span>{item.stat.label}</span></div>
+        <div className="behind-preview-stat" aria-hidden="true"><strong>{count}</strong><span>SKILLS</span></div>
       </div>
-      <span className="sr-only">{item.term.join(". ")}. {item.stat.value}{item.stat.suffix} {item.stat.label}.</span>
+      <span className="sr-only">{item.term.join(". ")}. {item.tags.length} skills.</span>
     </motion.div>
   );
 }
 
-export function BehindTheBuildPreview({ item, activeIndex, cycle, paused, reduced }: Props) {
+export function BehindTheBuildPreview({ item, activeIndex, cycle, paused, reduced, started, autoplayMs }: Props) {
   const rotateX = useMotionValue(0);
   const rotateY = useMotionValue(0);
   const smoothX = useSpring(rotateX, { stiffness: 160, damping: 22 });
@@ -71,9 +75,9 @@ export function BehindTheBuildPreview({ item, activeIndex, cycle, paused, reduce
     <div className="behind-preview-perspective">
       <motion.div className="behind-preview" style={{ rotateX: smoothX, rotateY: smoothY }} onPointerMove={tilt} onPointerLeave={() => { rotateX.set(0); rotateY.set(0); }} aria-live="polite" aria-atomic="true">
         <AnimatePresence mode="wait" initial={false}>
-          <PreviewContent key={activeIndex} item={item} reduced={reduced} />
+          <PreviewContent key={`${activeIndex}-${started ? "live" : "still"}`} item={item} reduced={reduced} play={started} />
         </AnimatePresence>
-        {!reduced && !paused && <motion.div key={`${activeIndex}-${cycle}`} className="behind-preview-progress" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 26, ease: "linear" }} aria-hidden="true" />}
+        {!reduced && !paused && <motion.div key={`${activeIndex}-${cycle}`} className="behind-preview-progress" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: autoplayMs / 1000, ease: "linear" }} aria-hidden="true" />}
       </motion.div>
     </div>
   );

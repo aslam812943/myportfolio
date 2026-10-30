@@ -65,12 +65,12 @@ export function WeddingVideoCard() {
         loop
         playsInline
         preload={hasEntered ? "auto" : "none"}
-        poster="/projects/wedding-intro.png"
+        poster="/wedding/dream-wedding-poster.webp"
         onCanPlay={() => setVideoReady(true)}
         onError={() => setVideoFailed(true)}
         aria-hidden="true"
       >
-        {hasEntered && <source src="/wedding/VN20261013_170933.mp4" type="video/mp4" />}
+        {hasEntered && <source src="/wedding/dream-wedding-720.mp4" type="video/mp4" />}
       </video>
       {isVisible && hasEntered && !videoReady && !videoFailed && <span className="wedding-video-loading" role="status"><i aria-hidden="true" />LOADING FILM</span>}
       <Link className="wedding-card-link" href="/work/dream-wedding" aria-label="View Dream Wedding project">

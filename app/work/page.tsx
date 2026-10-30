@@ -10,8 +10,8 @@ export const metadata: Metadata = {
   title: "Projects & Case Studies",
   description: workDescription,
   alternates: { canonical: "/work" },
-  openGraph: { title: "Projects & Case Studies | Muhammad Aslam", description: workDescription, url: "/work", siteName: "Muhammad Aslam", type: "website", locale: "en_US", images: [{ url: "/images/aslam-hero.png", width: 1402, height: 1122, alt: "Muhammad Aslam" }] },
-  twitter: { card: "summary_large_image", title: "Projects & Case Studies | Muhammad Aslam", description: workDescription, images: ["/images/aslam-hero.png"] },
+  openGraph: { title: "Projects & Case Studies | Muhammad Aslam", description: workDescription, url: "/work", siteName: "Muhammad Aslam", type: "website", locale: "en_US", images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Muhammad Aslam, full-stack developer" }] },
+  twitter: { card: "summary_large_image", title: "Projects & Case Studies | Muhammad Aslam", description: workDescription, images: ["/og-image.jpg"] },
 };
 
 export default function WorkIndex() {
